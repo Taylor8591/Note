@@ -1,0 +1,1568 @@
+cat@lubancat:~$ v4l2-ctl --list-device
+rkisp-statistics (platform: rkisp):
+        /dev/video17    3A 统计信息输出
+        /dev/video18    3A 参数输入
+
+rkcif (platform:rkcif-mipi-lvds2):
+        /dev/video0     虚拟通道0 RAW流
+        /dev/video1     虚拟通道1 RAW流
+        /dev/video2     虚拟通道2 RAW流
+        /dev/video3     虚拟通道3 RAW流
+        /dev/video4     虚拟通道0
+        /dev/video5     虚拟通道1
+        /dev/video6     虚拟通道2
+        /dev/video7     虚拟通道3
+        /dev/video8     调试工具0
+        /dev/video9     调试工具1
+        /dev/video10    调试工具2
+        /dev/media0     Media0: rkcif-mipi-lvds2 (CIF 层)
+
+rkisp_mainpath (platform:rkisp-vir2):
+        /dev/video11    主路径输出
+        /dev/video12    自拍路径输出
+        /dev/video13    镜头畸变矫正输出
+        /dev/video14    图像质量调试工具
+        /dev/video15    RAW 读取主路径
+        /dev/video16    RAW 读取自路径
+        /dev/video19    相位对焦数据
+        /dev/media1     Media1: rkisp-vir2 (ISP 层)
+
+rkvpss_scale0 (platform:rkvpss-vir2):
+        /dev/video21    缩放通道0
+        /dev/video22    缩放通道1
+        /dev/video23    缩放通道2
+        /dev/video24    缩放通道3
+        /dev/media2     Media2: rkvpss-vir2 (VPSS 层)
+
+cat@lubancat:~$ media-ctl -d /dev/media0 -p
+Media controller API version 6.1.99
+
+Media device information
+------------------------
+driver          rkcif
+model           rkcif-mipi-lvds2
+serial
+bus info        platform:rkcif-mipi-lvds2
+hw revision     0x0
+driver version  6.1.99
+
+Device topology
+- entity 1: stream_cif_mipi_id0 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video0
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 [ENABLED]
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 5: stream_cif_mipi_id1 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video1
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 [ENABLED]
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 9: stream_cif_mipi_id2 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video2
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 [ENABLED]
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 13: stream_cif_mipi_id3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video3
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 [ENABLED]
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 17: rkcif_scale_ch0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video4
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 [ENABLED]
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 21: rkcif_scale_ch1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video5
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 [ENABLED]
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 25: rkcif_scale_ch2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video6
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 [ENABLED]
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 29: rkcif_scale_ch3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video7
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 [ENABLED]
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 33: rkcif_tools_id0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video8
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 [ENABLED]
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 37: rkcif_tools_id1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video9
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 [ENABLED]
+                <- "rockchip-mipi-csi2":11 []
+
+- entity 41: rkcif_tools_id2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video10
+        pad0: Sink
+                <- "rockchip-mipi-csi2":1 []
+                <- "rockchip-mipi-csi2":2 []
+                <- "rockchip-mipi-csi2":3 []
+                <- "rockchip-mipi-csi2":4 []
+                <- "rockchip-mipi-csi2":5 []
+                <- "rockchip-mipi-csi2":6 []
+                <- "rockchip-mipi-csi2":7 []
+                <- "rockchip-mipi-csi2":8 []
+                <- "rockchip-mipi-csi2":9 []
+                <- "rockchip-mipi-csi2":10 []
+                <- "rockchip-mipi-csi2":11 [ENABLED]
+
+- entity 45: rockchip-mipi-csi2 (12 pads, 122 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev1
+        pad0: Sink
+                [fmt:SBGGR10_1X10/3264x2448 field:none
+                 crop.bounds:(0,0)/3264x2448
+                 crop:(0,0)/3264x2448]
+                <- "rockchip-csi2-dphy2":1 [ENABLED]
+        pad1: Source
+                -> "stream_cif_mipi_id0":0 [ENABLED]
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad2: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 [ENABLED]
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad3: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 [ENABLED]
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad4: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 [ENABLED]
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad5: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 [ENABLED]
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad6: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 [ENABLED]
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad7: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 [ENABLED]
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad8: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 [ENABLED]
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad9: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 [ENABLED]
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 []
+        pad10: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 [ENABLED]
+                -> "rkcif_tools_id2":0 []
+        pad11: Source
+                -> "stream_cif_mipi_id0":0 []
+                -> "stream_cif_mipi_id1":0 []
+                -> "stream_cif_mipi_id2":0 []
+                -> "stream_cif_mipi_id3":0 []
+                -> "rkcif_scale_ch0":0 []
+                -> "rkcif_scale_ch1":0 []
+                -> "rkcif_scale_ch2":0 []
+                -> "rkcif_scale_ch3":0 []
+                -> "rkcif_tools_id0":0 []
+                -> "rkcif_tools_id1":0 []
+                -> "rkcif_tools_id2":0 [ENABLED]
+
+- entity 58: rockchip-csi2-dphy2 (2 pads, 2 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev2
+        pad0: Sink
+                [fmt:SBGGR10_1X10/3264x2448@10000/150000 field:none]
+                <- "m02_b_ov8858 5-0036":0 [ENABLED]
+        pad1: Source
+                -> "rockchip-mipi-csi2":0 [ENABLED]
+
+- entity 63: m02_b_ov8858 5-0036 (1 pad, 1 link)
+             type V4L2 subdev subtype Sensor flags 0
+             device node name /dev/v4l-subdev3
+        pad0: Source
+                [fmt:SBGGR10_1X10/3264x2448@10000/150000 field:none]
+                -> "rockchip-csi2-dphy2":0 [ENABLED]
+
+- entity 67: m02_b_dw9714 5-000c (0 pad, 0 link)
+             type V4L2 subdev subtype Lens flags 0
+             device node name /dev/v4l-subdev4
+
+cat@lubancat:~$ media-ctl -d /dev/media1 -p
+Media controller API version 6.1.99
+
+Media device information
+------------------------
+driver          rkisp-vir2
+model           rkisp0
+serial
+bus info        platform:rkisp-vir2
+hw revision     0x0
+driver version  6.1.99
+
+Device topology
+- entity 1: rkisp-isp-subdev (4 pads, 10 links)
+            type V4L2 subdev subtype Unknown flags 0
+            device node name /dev/v4l-subdev5
+        pad0: Sink
+                [fmt:SBGGR10_1X10/3264x2448 field:none
+                 crop.bounds:(0,0)/3264x2448
+                 crop:(0,0)/3264x2448]
+                <- "rkisp_rawrd0_m":0 []
+                <- "rkisp_rawrd2_s":0 []
+                <- "rkcif-mipi-lvds2":0 [ENABLED]
+        pad1: Sink
+                <- "rkisp-input-params":0 [ENABLED]
+        pad2: Source
+                [fmt:YUYV8_2X8/3264x2448 field:none colorspace:smpte170m quantiz
+                 crop.bounds:(0,0)/3264x2448
+                 crop:(0,0)/3264x2448]
+                -> "rkisp_mainpath":0 [ENABLED]
+                -> "rkisp_selfpath":0 [ENABLED]
+                -> "rkisp_ldcpath":0 []
+                -> "rkisp_iqtool":0 [ENABLED]
+        pad3: Source
+                -> "rkisp-statistics":0 [ENABLED]
+                -> "rkisp-pdaf":0 [ENABLED]
+
+- entity 6: rkisp_mainpath (1 pad, 1 link)
+            type Node subtype V4L flags 0
+            device node name /dev/video11
+        pad0: Sink
+                <- "rkisp-isp-subdev":2 [ENABLED]
+
+- entity 12: rkisp_selfpath (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video12
+        pad0: Sink
+                <- "rkisp-isp-subdev":2 [ENABLED]
+
+- entity 18: rkisp_ldcpath (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video13
+        pad0: Sink
+                <- "rkisp-isp-subdev":2 []
+
+- entity 24: rkisp_iqtool (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video14
+        pad0: Sink
+                <- "rkisp-isp-subdev":2 [ENABLED]
+
+- entity 30: rkisp_rawrd0_m (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video15
+        pad0: Source
+                -> "rkisp-isp-subdev":0 []
+
+- entity 36: rkisp_rawrd2_s (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video16
+        pad0: Source
+                -> "rkisp-isp-subdev":0 []
+
+- entity 42: rkisp-statistics (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video17
+        pad0: Sink
+                <- "rkisp-isp-subdev":3 [ENABLED]
+
+- entity 48: rkisp-input-params (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video18
+        pad0: Source
+                -> "rkisp-isp-subdev":1 [ENABLED]
+
+- entity 54: rkisp-pdaf (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video19
+        pad0: Sink
+                <- "rkisp-isp-subdev":3 [ENABLED]
+
+- entity 60: rkcif-mipi-lvds2 (1 pad, 1 link)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev6
+        pad0: Source
+                [fmt:SBGGR10_1X10/3264x2448@10000/150000 field:none]
+                -> "rkisp-isp-subdev":0 [ENABLED]
+
+cat@lubancat:~$ media-ctl -d /dev/media2 -p
+Media controller API version 6.1.99
+
+Media device information
+------------------------
+driver          rkvpss-vir2
+model           rkvpss0
+serial
+bus info        platform:rkvpss-vir2
+hw revision     0x0
+driver version  6.1.99
+
+Device topology
+- entity 1: rkvpss-subdev (2 pads, 5 links)
+            type V4L2 subdev subtype Unknown flags 0
+        pad0: Sink
+                <- "rkisp-vir2-sditf":0 [ENABLED]
+        pad1: Source
+                -> "rkvpss_scale0":0 [ENABLED]
+                -> "rkvpss_scale1":0 [ENABLED]
+                -> "rkvpss_scale2":0 [ENABLED]
+                -> "rkvpss_scale3":0 [ENABLED]
+
+- entity 4: rkvpss_scale0 (1 pad, 1 link)
+            type Node subtype V4L flags 0
+            device node name /dev/video21
+        pad0: Sink
+                <- "rkvpss-subdev":1 [ENABLED]
+
+- entity 8: rkvpss_scale1 (1 pad, 1 link)
+            type Node subtype V4L flags 0
+            device node name /dev/video22
+        pad0: Sink
+                <- "rkvpss-subdev":1 [ENABLED]
+
+- entity 12: rkvpss_scale2 (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video23
+        pad0: Sink
+                <- "rkvpss-subdev":1 [ENABLED]
+
+- entity 16: rkvpss_scale3 (1 pad, 1 link)
+             type Node subtype V4L flags 0
+             device node name /dev/video24
+        pad0: Sink
+                <- "rkvpss-subdev":1 [ENABLED]
+
+- entity 20: rkisp-vir2-sditf (1 pad, 1 link)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev0
+        pad0: Source
+                [fmt:YUYV8_2X8/3264x2448 field:none colorspace:smpte170m quantization:full-range]
+                -> "rkvpss-subdev":0 [ENABLED]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video0 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [1]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [2]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [3]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [4]: 'Y10 ' (10-bit Greyscale)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video1 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [1]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [2]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [3]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [4]: 'Y10 ' (10-bit Greyscale)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video2 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [1]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [2]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [3]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [4]: 'Y10 ' (10-bit Greyscale)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video3 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [1]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [2]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [3]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+        [4]: 'Y10 ' (10-bit Greyscale)
+                Size: Stepwise 64x64 - 3264x2448 with step 8/8
+
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video4 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG16' (16-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [1]: 'GR16' (16-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [2]: 'GB16' (16-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [3]: 'BYR2' (16-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [4]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [5]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [6]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [7]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [8]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [9]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [10]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [11]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [12]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [13]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [14]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [15]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [16]: 'GREY' (8-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [17]: 'Y12 ' (12-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [18]: 'Y10 ' (10-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+cat@lubancat:~$ v4l2-ctl -d /dev/video5 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG16' (16-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [1]: 'GR16' (16-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [2]: 'GB16' (16-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [3]: 'BYR2' (16-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [4]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [5]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [6]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [7]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [8]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [9]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [10]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [11]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [12]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [13]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [14]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [15]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [16]: 'GREY' (8-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [17]: 'Y12 ' (12-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [18]: 'Y10 ' (10-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+cat@lubancat:~$ v4l2-ctl -d /dev/video6 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG16' (16-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [1]: 'GR16' (16-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [2]: 'GB16' (16-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [3]: 'BYR2' (16-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [4]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [5]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [6]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [7]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [8]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [9]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [10]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [11]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [12]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [13]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [14]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [15]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [16]: 'GREY' (8-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [17]: 'Y12 ' (12-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [18]: 'Y10 ' (10-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+cat@lubancat:~$ v4l2-ctl -d /dev/video7 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RG16' (16-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [1]: 'GR16' (16-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [2]: 'GB16' (16-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [3]: 'BYR2' (16-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [4]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [5]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [6]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [7]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [8]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [9]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [10]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [11]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [12]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [13]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [14]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [15]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [16]: 'GREY' (8-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [17]: 'Y12 ' (12-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+        [18]: 'Y10 ' (10-bit Greyscale)
+                Size: Discrete 408x306
+                Size: Discrete 204x152
+                Size: Discrete 102x76
+cat@lubancat:~$ v4l2-ctl -d /dev/video8 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [1]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [2]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [3]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [4]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [5]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [6]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [7]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [8]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [9]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [10]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [11]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+cat@lubancat:~$ v4l2-ctl -d /dev/video9 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [1]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [2]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [3]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [4]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [5]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [6]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [7]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [8]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [9]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [10]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [11]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+cat@lubancat:~$ v4l2-ctl -d /dev/video10 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'RGGB' (8-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [1]: 'GRBG' (8-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [2]: 'GBRG' (8-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [3]: 'BA81' (8-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [4]: 'RG10' (10-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [5]: 'BA10' (10-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [6]: 'GB10' (10-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [7]: 'BG10' (10-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [8]: 'RG12' (12-bit Bayer RGRG/GBGB)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [9]: 'BA12' (12-bit Bayer GRGR/BGBG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [10]: 'GB12' (12-bit Bayer GBGB/RGRG)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+        [11]: 'BG12' (12-bit Bayer BGBG/GRGR)
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+                Size: Discrete 3264x2448
+cat@lubancat:~$ v4l2-ctl -d /dev/video11 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'UYVY' (UYVY 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [1]: 'NV16' (Y/UV 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [2]: 'NV61' (Y/VU 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [3]: 'NV21' (Y/VU 4:2:0)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [4]: 'NV12' (Y/UV 4:2:0)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [5]: 'NM21' (Y/VU 4:2:0 (N-C))
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [6]: 'NM12' (Y/UV 4:2:0 (N-C))
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video12 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'UYVY' (UYVY 4:2:2)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [1]: 'NV16' (Y/UV 4:2:2)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [2]: 'NV61' (Y/VU 4:2:2)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [3]: 'NV21' (Y/VU 4:2:0)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [4]: 'NV12' (Y/UV 4:2:0)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [5]: 'NM21' (Y/VU 4:2:0 (N-C))
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [6]: 'NM12' (Y/UV 4:2:0 (N-C))
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [7]: 'GREY' (8-bit Greyscale)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [8]: 'XR24' (32-bit BGRX 8-8-8-8)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [9]: 'RGBP' (16-bit RGB 5-6-5)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+        [10]: 'RGB3' (24-bit RGB 8-8-8)
+                Size: Stepwise 32x32 - 1920x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video13 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'UYVY' (UYVY 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [1]: 'NV16' (Y/UV 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [2]: 'NV61' (Y/VU 4:2:2)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [3]: 'NV21' (Y/VU 4:2:0)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [4]: 'NV12' (Y/UV 4:2:0)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+        [5]: 'GREY' (8-bit Greyscale)
+                Size: Stepwise 32x32 - 3264x2448 with step 8/8
+cat@lubancat:~$ v4l2-ctl -d /dev/video14 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'UYVY' (UYVY 4:2:2)
+                Size: Discrete 3264x2448
+        [1]: 'NV16' (Y/UV 4:2:2)
+                Size: Discrete 3264x2448
+        [2]: 'NV61' (Y/VU 4:2:2)
+                Size: Discrete 3264x2448
+        [3]: 'NV21' (Y/VU 4:2:0)
+                Size: Discrete 3264x2448
+        [4]: 'NV12' (Y/UV 4:2:0)
+                Size: Discrete 3264x2448
+        [5]: 'NM21' (Y/VU 4:2:0 (N-C))
+                Size: Discrete 3264x2448
+        [6]: 'NM12' (Y/UV 4:2:0 (N-C))
+                Size: Discrete 3264x2448
+cat@lubancat:~$ v4l2-ctl -d /dev/video15 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video16 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video17 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video18 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video19 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'SPD6' (Shield pix data 16-bit)
+
+cat@lubancat:~$ v4l2-ctl -d /dev/video21 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'NV16' (Y/UV 4:2:2)
+        [1]: 'NV12' (Y/UV 4:2:0)
+        [2]: 'GREY' (8-bit Greyscale)
+        [3]: 'UYVY' (UYVY 4:2:2)
+        [4]: 'NV61' (Y/VU 4:2:2)
+        [5]: 'NV21' (Y/VU 4:2:0)
+        [6]: 'VYUY' (VYUY 4:2:2)
+        [7]: 'TIL0' (Rockchip yuv420 tile)
+        [8]: 'TIL2' (Rockchip yuv422 tile)
+cat@lubancat:~$ v4l2-ctl -d /dev/video22 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'NV16' (Y/UV 4:2:2)
+        [1]: 'NV12' (Y/UV 4:2:0)
+        [2]: 'GREY' (8-bit Greyscale)
+        [3]: 'UYVY' (UYVY 4:2:2)
+        [4]: 'RGBP' (16-bit RGB 5-6-5)
+        [5]: 'RGB3' (24-bit RGB 8-8-8)
+        [6]: 'XR24' (32-bit BGRX 8-8-8-8)
+        [7]: 'RGBR' (16-bit RGB 5-6-5 BE)
+        [8]: 'BGR3' (24-bit BGR 8-8-8)
+        [9]: 'BX24' (32-bit XRGB 8-8-8-8)
+        [10]: 'NV61' (Y/VU 4:2:2)
+        [11]: 'NV21' (Y/VU 4:2:0)
+        [12]: 'VYUY' (VYUY 4:2:2)
+        [13]: 'TIL0' (Rockchip yuv420 tile)
+        [14]: 'TIL2' (Rockchip yuv422 tile)
+cat@lubancat:~$ v4l2-ctl -d /dev/video23 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'NV16' (Y/UV 4:2:2)
+        [1]: 'NV12' (Y/UV 4:2:0)
+        [2]: 'GREY' (8-bit Greyscale)
+        [3]: 'UYVY' (UYVY 4:2:2)
+        [4]: 'NV61' (Y/VU 4:2:2)
+        [5]: 'NV21' (Y/VU 4:2:0)
+        [6]: 'VYUY' (VYUY 4:2:2)
+cat@lubancat:~$ v4l2-ctl -d /dev/video24 --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+        Type: Video Capture Multiplanar
+
+        [0]: 'NV16' (Y/UV 4:2:2)
+        [1]: 'NV12' (Y/UV 4:2:0)
+        [2]: 'GREY' (8-bit Greyscale)
+        [3]: 'UYVY' (UYVY 4:2:2)
+        [4]: 'NV61' (Y/VU 4:2:2)
+        [5]: 'NV21' (Y/VU 4:2:0)
+        [6]: 'VYUY' (VYUY 4:2:2)

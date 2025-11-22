@@ -1,0 +1,49 @@
+/* USB 3.0 OTG/SATA Combo PHY_0 */
+combphy0_us: phy@fe820000 {
+
+};
+
+/* USB 3.0 Host/SATA/QSGMII Combo PHY_1 */
+combphy1_usq: phy@fe830000 {
+
+};
+
+/* USB OTG/USB Host_1 USB 2.0 Comb PHY_0 */
+usb2phy0: usb2-phy@fe8a0000 {
+    u2phy0_host: host-port {};
+    u2phy0_otg: otg-port {};
+};
+
+/* USB Host_2/USB Host_3 USB 2.0 Comb PHY_1 */
+usb2phy1: usb2-phy@fe8b0000 {
+    u2phy1_host: host-port {};
+    u2phy1_otg: otg-port {};
+};
+
+/* USB 3.0 OTG controller */
+usbdrd30: usbdrd {
+    usbdrd_dwc3: dwc3@fcc00000 {
+        phys = <&u2phy0_otg>, <&combphy0_us PHY_TYPE_USB3>;
+        phy-names = "usb2-phy", "usb3-phy";
+    };
+};
+
+/* USB 3.0 Host_1 controller */
+usbhost30: usbhost {
+    usbhost_dwc3: dwc3@fd000000 {
+        phys = <&u2phy0_host>, <&combphy1_usq PHY_TYPE_USB3>;
+        phy-names = "usb2-phy", "usb3-phy";
+    };
+};
+
+/* USB 2.0 Host_2 EHCI controller for high speed */
+usb_host0_ehci: usb@fd800000 {};
+
+/* USB 2.0 Host_2 OHCI controller for full/low speed */
+usb_host0_ohci: usb@fd840000 {};
+
+/* USB 2.0 Host_3 EHCI controller for high speed */
+usb_host1_ehci: usb@fd880000 {};
+
+/* USB 2.0 Host_3 OHCI controller for full/low speed */
+usb_host1_ohci: usb@fd8c0000 {};

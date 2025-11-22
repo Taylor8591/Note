@@ -1,0 +1,1 @@
+cmd_/home/user/learn/PWM/pwm.ko := aarch64-linux-gnu-ld -r -EL  -maarch64elf -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/user/learn/PWM/pwm.ko /home/user/learn/PWM/pwm.o /home/user/learn/PWM/pwm.mod.o;  true

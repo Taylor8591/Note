@@ -1,0 +1,58 @@
+# Obsidian 特定文件
+.obsidian/
+# .obsidian/workspace.json
+# .obsidian/workspace-mobile.json
+# .obsidian/app.json
+# .obsidian/core-plugins.json
+# .obsidian/core-plugins-mobile.json
+# .obsidian/desktop.json
+# .obsidian/appearance.json
+# .obsidian/community-plugins.json
+# .obsidian/hotkeys.json
+# .obsidian/graph.json
+# .obsidian/themes/
+# .obsidian/plugins/
+# .obsidian/snippets/
+# .obsidian/.trash/
+
+# 缓存和临时文件
+.obsidian/.cache/
+.obsidian/.trash/
+*.tmp
+*.temp
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 编辑器备份文件
+*~
+*.swp
+*.swo
+
+# 日志文件
+*.log
+
+# 个人配置（建议保留，但根据需求选择）
+# 如果要同步插件配置，可以注释掉以下行：
+# .obsidian/community-plugins.json
+# .obsidian/core-plugins.json
+# .obsidian/hotkeys.json
+# .obsidian/appearance.json
+
+# 可选：忽略特定文件夹（根据你的需求调整）
+# attachments/
+# assets/
+# templates/
+
+# 可选：忽略特定文件类型
+# *.pdf
+# *.jpg
+# *.png
+# *.mp3
+# *.mp4

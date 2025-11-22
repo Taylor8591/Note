@@ -1,0 +1,6 @@
+...
+pwm_device:pwm_device@0 {
+
+    compatible = "my_pwm"
+    pwms = <&pwm2>
+}
