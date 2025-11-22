@@ -1,1 +1,0 @@
-cmd_/home/user/learn/BL0939/bl0939.ko := aarch64-linux-gnu-ld -r -EL  -maarch64elf -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/user/learn/BL0939/bl0939.ko /home/user/learn/BL0939/bl0939.o /home/user/learn/BL0939/bl0939.mod.o;  true
