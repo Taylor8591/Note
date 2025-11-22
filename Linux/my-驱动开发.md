@@ -66,6 +66,72 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8
 		![[Pasted image 20250917210002.png]]
 		可以从上图中看到`rk-kernel.dtb`链接到了`dtb/rk3566-lubancat-1n.dtb`，在系统启动过程中会读取 `rk-kernel.dtb`作为系统设备树，实际读取的设备树为`/boot/dtb/rk3566-lubancat-1n.dtb`。因此，如果需要修改和替换系统加载的设 备树，那么就要修改`rk-kernel.dtb`软链接的设备树。
 	2. **替换设备树**
+## 六、ATK SDK的使用
+### 编译步骤
+1. **编译所有**
+	``` bash
+	./build.sh all
+	```
+2. **将编译的镜像打包到`<SDK>/rockdev/`目录下**
+	``` bash
+	./build.sh firmware
+	```
+3. **将`<SDK>/rockdev/`目录下的镜像文件打包成`update.img`**
+	``` bash
+	./build.sh updateimg
+	```
+- 单独编译内核
+	``` bash
+	./build.sh kernel
+	```
+- 单独编译内核模块
+	``` bash
+	./build.sh modules
+	```
+### 关键镜像
+- **uboot.img**
+	FIT 格式镜像，由多个镜像打包而成（trust 镜像、u-boot 镜像、u-boot dtb），最终烧录到uboot 分区
+- **boot.img**
+	FIT格式镜像，由多个镜像打包而成（内核镜像、内核DTB、resource.img），最终烧录到boot 分区
+- **MiniLoaderAll.bin**
+	运行在 RK3568 平台 U-Boot 之前的一段 Loader 代码，由 TPL 和 SPL 两部分组成，TPL 用于初始化 DDR，运行在 SRAM；而 SPL 运行在 DDR，主要负责加载、引导 uboot.img
+- **parameter.txt**
+	RK3568 平台的分区表文件（记录分区名以及 每个分区它的起始地址、结束地址）；烧写镜像时，并不需要将 parameter.txt 文件烧写到 Flash，而是会读取它的信息去定义分区。
+- **rootfs.img**
+	正常启动模式下对应的根文件系统镜像，包含有大量的库文件、可 执行文件等
+- **userdata.img**
+	给用户使用，可用于存放用户的 App 或数据；该镜像会烧写至开发 板 userdata 分区，系统启动之后，会将其挂载到/userdata 目录
+### 关键文件位置
+- `./build.sh lunch`中的板级配置
+	`<SDK>/device/rockchip/rk356x/`
+### U-Boot 开发
+- 编译
+	``` bash
+	./make.sh rk3568
+	```
+- U-Boot 的设备树
+	`<U-Boot>/arch/arm/dts/rk3568-evb.dts`
+- 关键镜像
+	- `uboot.img`
+		由多个镜像合并而成，是一种 FIT（flattened image tree）格式镜像， 支持任意多个 image 打包和校验。
+		使用 its 文件来描述 image 的信息，最终通过`<U-Boot>/tools/mkimage`工具生成 itb 镜像，its 文件和生成的 itb 文件都在 `<U-Boot>/fit`目录下
+		u-boot.its 文件中描述了有哪些镜像会参与合并成 uboot.itb
+	- `rk356x_spl_loader_v1.13.112.bin`
+		是 MiniLoaderAll.bin 镜像，运行在 RK3568 平台 U-Boot 之前的一段 Loader 代码（也就是比 U-Boot 更早阶 段的 Loader）。
+		iniLoaderAll.bin 由两部分构成：TPL(Tiny Program Loader) + SPL(Secondary Program Loader)构成。
+- HW-ID DTB
+	RK 平台 U-Boot 支持检测 GPIO 或者 ADC 的硬件状态实现动态加载不同的 kernel DTB
+### ==修改内核配置==
+``` bash
+<SDK>/kernel
+make ARCH=arm64 rockchip_linux_defconfig
+make ARCH=arm64 menuconfig
+make ARCH=arm64 savedefconfig
+cp defconfig arch/arm64/configs/rockchip_linux_defconfig
+
+<SDK>/
+make kernel
+```
 # 第二章：Linux 内核模块
 ## 一、内核模块的概念
 - **内核驱动模块**
@@ -636,142 +702,161 @@ led {
 	```
 # 第六章：字符设备
 ## 一、设备的基本概念
-- **设备号**
-	- **主设备号**用于标识设备对应的驱动程序，告诉 Linux 内核使用哪一个**驱动程序**为该设备服务
-	- **次设备号**可以用一个**驱动程序**去控制各种设备
-	- ==查看Linux系统中所有**设备文件**==
-		``` bash
-		ls -l /dev/
-		```
-		每一行的第一个字符
-		- c：标识字符设备
-		- b：用来标识块设备
-	- ==查看**设备驱动**与设备号的映射关系==
-		``` bash
-		cat /proc/devices
-		```
-		记录"主设备号 + 驱动名称"
-- **设备节点**
-	**一个设备节点其实就是一个文件**，Linux 中称为设备文件。有一点必要说明的是，在 Linux 中，所有的设备访问都是通 过文件的方式，一般的数据文件程序普通文件，设备节点称为设备文件。
-	设备节点被创建在`/dev` 下，是连接内核与用户层的枢纽，就是设备是接到对应哪种接口的哪个 ID 上。
-	- 使用命令创建
-		``` bash
-		mknod [选项] 设备节点路径 设备类型 主设备号 次设备号
-		```
-	- 使用命令删除
-		``` bash
-		rm /dev/chrdev
-		```
-	- ==使用类创建==
-		``` C
-		struct class *my_class
-		
-		//my_device_class会作为目录名出现在/sys/class/下
-		my_class = class_create(THIS_MODULE, "my_device_class");
-		if (IS_ERR(my_class)) {
-			...
-		}
-		if (IS_ERR(device_create(my_class, NULL, dev_num, NULL, "my_device"))) {
-			...
-		}
-		```
-	- ==使用类删除==
-		``` C
-		device_destroy(my_class, dev_num);
-		class_destroy(my_class);
-		```
-- **数据结构**
-	- `struct file_operations`
-		定义了对文件的所有操作方法。把**系统调用**和**驱动程序**关联起来的关键数据结构。
-		``` C
-		struct file_operations {
-			struct module *owner;
-			loff_t (*llseek) (struct file *, loff_t, int);
-			ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
-			ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
-			long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
-			int (*open) (struct inode *, struct file *)
-			int (*release) (struct inode *, struct file *);
-		};
-		```
-		- **在系统调用和驱动程序之间拷贝数据的api**
-			1. 将数据从**用户空间**安全地复制到**内核空间**
-				``` C
-				 unsigned long copy_from_user(
-				  void *to, const void __user *from, unsigned long n
-			  )
-				```
-				- 参数
-					`void *to`：内核空间的目标缓冲区指针（数据复制的目的地）
-					`const void __user *from`：用户空间的源数据指针
-					`unsigned long n`：字节数
-			2. 将数据从**内核空间**安全地复制到**用户空间**
-				``` C
-				unsigned long copy_to_user(
-					void __user *to, const void *from, unsigned long n
-				)
-				```
-				- 参数
-					`void __user *to`：用户空间的目标缓冲区指针
-					`const void *from`：内核空间的源数据指针
-					`unsigned long n`：字节数
-	- `struct cdev`
-		``` C
-		struct cdev {
-			...
-		    struct module *owner;// 指向拥有该设备的模块（通常为 THIS_MODULE）
-		    const struct file_operations *ops;// 指向设备的操作函数集（核心成员）
-		    dev_t dev;// 设备号（包含主设备号和次设备号）
-		    ...
-		}
-		```
-## 二、驱动程序流程
-1. **字符设备的定义与注销**
-	- 定义字符设备结构体
-		``` C
-		//第一种方式
-		static struct cdev chrdev;
-		//第二种方式
-		struct cdev *cdev_alloc(void);
-		```
-	- 移除字符设备
-		``` C
-		void cdev_del(struct cdev *p);
-		```
-2. **设备编号的申请与注销**
-	- 申请字符设备设备编号
-		-  静态地为一个字符设备申请一个或多个设备编号
-			``` C
-			int register_chrdev_region(
-				dev_t from, unsigned count, const char *name
-			)
-			```
-		- ==动态地为一个字符设备申请一个或多个设备编号==
-			``` C
-			int alloc_chrdev_region(
-				dev_t *dev, unsigned baseminor, unsigned count, const char *name
-			)
-			```
-			- 参数
-				`unsigned baseminor`：次设备号，可写0
-	- 注销字符设备设备编号
-		``` C
-		void unregister_chrdev_region(dev_t from, unsigned count)
-		```
-3. **初始化`cdev`**
-	``` C
-	void cdev_init(struct cdev *cdev, const struct file_operations *fops)
+### 1. 设备号
+- **主设备号**用于标识设备对应的驱动程序，告诉 Linux 内核使用哪一个**驱动程序**为该设备服务
+- **次设备号**可以用一个**驱动程序**去控制各种设备
+- ==查看Linux系统中所有**设备文件**==
+	``` bash
+	ls -l /dev/
 	```
-4. **设备注册和注销**
-	- 注册设备
-		``` C
-		int cdev_add(struct cdev *cdev, dev_t dev, unsigned count)
-		```
-	- 注销设备
-		``` C
-		void cdev_del(struct cdev *cdev)
-		```
-# §3.7：devm_系列函数
+	每一行的第一个字符
+	- c：标识字符设备
+	- b：用来标识块设备
+- ==查看**设备驱动**与设备号的映射关系==
+	``` bash
+	cat /proc/devices
+	```
+	记录"主设备号 + 驱动名称"
+### 2. 设备节点
+**一个设备节点其实就是一个文件**，Linux 中称为设备文件。有一点必要说明的是，在 Linux 中，所有的设备访问都是通过文件的方式，一般的数据文件程序普通文件，设备节点称为设备文件。
+设备节点被创建在`/dev` 下，是连接内核与用户层的枢纽，就是设备是接到对应哪种接口的哪个 ID 上。
+- **使用命令创建**
+	``` bash
+	mknod [选项] 设备节点路径 设备类型 主设备号 次设备号
+	```
+- **使用命令删除**
+	``` bash
+	rm /dev/chrdev
+	```
+- **使用类创建**
+	``` C
+	struct class *my_class
+	
+	//my_device_class会作为目录名出现在/sys/class/下
+	my_class = class_create(THIS_MODULE, "my_device_class");
+	if (IS_ERR(my_class)) {
+		...
+	}
+	if (IS_ERR(device_create(my_class, NULL, dev_num, NULL, "my_device"))) {
+		...
+	}
+	```
+- **使用类删除**
+	``` C
+	device_destroy(my_class, dev_num);
+	class_destroy(my_class);
+	```
+### 3. 数据结构
+**`struct file_operations`**
+	定义了对文件的所有操作方法。把**系统调用**和**驱动程序**关联起来的关键数据结构。
+``` C
+struct file_operations {
+	struct module *owner;
+	loff_t (*llseek) (struct file *, loff_t, int);
+	ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
+	ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
+	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
+	int (*open) (struct inode *, struct file *)
+	int (*release) (struct inode *, struct file *);
+};
+	```
+**`struct cdev`**
+``` C
+struct cdev {
+	...
+	struct module *owner;// 指向拥有该设备的模块（通常为 THIS_MODULE）
+	const struct file_operations *ops;// 指向设备的操作函数集（核心成员）
+	dev_t dev;// 设备号（包含主设备号和次设备号）
+	...
+}
+	```
+### 4. 在系统调用和驱动程序之间拷贝数据的api
+1. 将数据从**用户空间**安全地复制到**内核空间**
+	``` C
+	 unsigned long copy_from_user(
+	  void *to, const void __user *from, unsigned long n)
+	```
+	- 参数
+		`void *to`：内核空间的目标缓冲区指针（数据复制的目的地）
+		`const void __user *from`：用户空间的源数据指针
+		`unsigned long n`：字节数
+2. 将数据从**内核空间**安全地复制到**用户空间**
+	``` C
+	unsigned long copy_to_user(
+		void __user *to, const void *from, unsigned long n)
+	```
+	- 参数
+		`void __user *to`：用户空间的目标缓冲区指针
+		`const void *from`：内核空间的源数据指针
+		`unsigned long n`：字节数
+## 二、驱动注册流程
+### 1. 定义 cdev 结构体
+``` C
+//第一种方式
+static struct cdev chrdev;
+
+//第二种方式
+struct cdev *cdev_alloc(void);
+```
+### 2. 申请设备编号
+-  静态地为一个字符设备申请一个或多个设备编号
+	``` C
+	int register_chrdev_region(
+		dev_t from, unsigned count, const char *name)
+	```
+- ==动态地为一个字符设备申请一个或多个设备编号==
+	``` C
+	int alloc_chrdev_region(
+		dev_t *dev, unsigned baseminor, unsigned count, const char *name)
+	```
+	参数
+		`unsigned baseminor`：次设备号，可写0
+### 3. 初始化 cdev
+``` C
+// ATK/kernel/fs/char_dev.c
+void cdev_init(struct cdev *cdev, const struct file_operations *fops)
+```
+### 4. 注册 cdev
+``` C
+// ATK/kernel/fs/char_dev.c
+int cdev_add(struct cdev *cdev, dev_t dev, unsigned count)
+```
+### 5. 注册 class
+``` c
+struct class *class_create(struct module *owner, const char *name)
+```
+### 6. 创建设备
+``` c
+// ATK/kernel/drivers/base/core.c
+struct device *device_create(struct class *class, struct device *parent,
+                 dev_t devt, void *drvdata, const char *fmt, ...)
+```
+- 可变参数
+	`struct device *parent`：父设备，一般为 NULL
+	`dev_t devt`：设备号
+	`void *drvdata`：设备可能会使 用的一些数据，一般为 NULL
+	`const char *fmt`：设备名，生成/dev/xxx 这个设备文件
+- 返回值
+	创建好的设备
+## 三、驱动注销
+``` c
+# 移除 cdev 结构体
+void cdev_del(struct cdev *p)
+
+# 注销字符设备设备编号
+void unregister_chrdev_region(dev_t from, unsigned count)
+
+# 注销 cdev
+void cdev_del(struct cdev *cdev)
+
+# 注销类
+void class_destroy(struct class *cls)
+
+# 删除设备
+void device_destroy(struct class *cls, dev_t devt)
+```
+
+# 第七章：devm_系列函数
 ## 一、申请内存
 ``` C
 void *devm_kmalloc(struct device *dev, size_t size, gfp_t gfp)
@@ -806,96 +891,129 @@ void __iomem *devm_ioremap_resource(struct device *dev, struct resource *res);
 void __iomem *devm_platform_ioremap_resource(struct platform_device *pdev,
                                            unsigned int index);
 ```
-#  §3.8：设备树与平台总线
+#  第八章：设备树与平台总线
 `platform`总线模型是Linux虚拟出来的，思想是**将以前1个.c文件分成设备device.c与driver.c两部分**
 ## 一、设备树语法
-1. **第一行要写的东西**
-	`/dts-v1/;`
-2. **设备树根节点**
-	``` 
-	/ {
+### 1. 第一行要写的东西
+``` c
+/dts-v1/;
+```
+### 2. 设备树根节点
+``` c
+/ {
 	...
+};
+```
+### 3. 子节点
+``` c
+节点标签：node_name@地址 {
+	...
+};
+```
+	单元地址的值要和节点`reg`属性的第一个地址一致（建议），如果节点没有“reg”属性值，可以直接省略
+	同一级的节点名字不能相同，不同级的节点名字可以相同
+### 4. 属性
+- **`reg`属性**
+	`reg = <address1 length1 address2 length2 ...>;`
+	`#address-cells`与`#size-cells`确定了子节点中的`address`与`lengrh`的个数
+	``` c
+	node1 {
+		#address-cells = <n>;
+		#size-cells = <n>;
+		node1-child {
+			reg = <0x10>;
+		};
 	};
-	```
-3. **子节点**
-	```
-	节点标签：node_name@单元地址 {
-		
-	};
-	```
-	- 单元地址的值要和节点`reg`属性的第一个地址一致（建议），如果节点没有“reg”属性值，可以直接省略
-	- 同一级的节点名字不能相同，不同级的节点名字可以相同
-4. **属性**
-	1. ==`reg`属性==
-		`reg = <address1 length1 address2 length2 ...>;`
-		`#address-cells`与`#size-cells`确定了子节点中的`address`与`lengrh`的个数
-		- 如
-			``` C
-			node1 {
-				#address-cells = <n>;
-				#size-cells = <n>;
-				node1-child {
-					reg = <0x10>;
-				};
-			};
-			```
-	2. `model`属性
-		model属性的值是一个字符串，一般用来描述一些信息，比如设备的名字
-		`model = "..."`
-	3. `status`属性
-		`okay`：设备是可用状态
-		`disable`：设备是不可用状态
-		`fail`：设备是不可用状态并且设备检测到了错误
-		`fail-sss`：设备是不可用状态并且设备检测到了错误，sss是错误内容
-	4. `compatible`属性
-		`compatible`是一个非常重要的属性，用来和驱动进行匹配，匹配成功后会执行驱动中的`probe`函数
-		`compatible = "aaa", "bbb";`
-		- 在匹配的时候会先使用第一个值`aaa`进行匹配，如果没有就会使用第二个值`bbb`进行匹配
-	5. `range`属性
-	6. 追加/修改节点内容
 		```
-		&节点标签 {
-			cpu-supply = <&vdd_cpu>;
-		}
-		```
-## 二、获取节点的属性
+- **`model`属性**
+	model属性的值是一个字符串，一般用来描述一些信息，比如设备的名字
+	``` c
+	model = "..."
+	```
+- **`status`属性**
+	`okay`：设备是可用状态
+	`disable`：设备是不可用状态
+- **`compatible`属性**
+	`compatible`是一个非常重要的属性，用来和驱动进行匹配，匹配成功后会执行驱动中的`probe`函数
+	`compatible = "aaa", "bbb";`
+	在匹配的时候会先使用第一个值`aaa`进行匹配，如果没有就会使用第二个值`bbb`进行匹配
+- **`range`属性**
+- **追加/修改节点内容**
+	``` c
+	&节点标签 {
+		cpu-supply = <&vdd_cpu>;
+	}
+	```
+## 二、设备树在系统中的体现
+- Linux 内核启动的时候会解析设备树中各个节点的信息
+``` bash
+cd /proc/device-tree
+```
+- **`chosen`子节点**
+	没啥用
+- **`aliases`子节点**
+	aliases 节点的主要功能就是定义别名，定义别名的目 的就是为了方便访问节点。不过我们一般会在节点命名的时候会加上 label，然后通过&label 来 访问节点，这样也很方便，而且设备树里面大量的使用&label 的形式来访问节点
+## 三、获取设备树节点
+### 通过节点名字查找指定的节点
+``` c
+struct device_node *of_find_node_by_name(struct device_node *from, 
+			const char *name);
+```
+- from：开始查找的节点，如果为 NULL 表示从根节点开始查找整个设备树
+- name：要查找的节点名字
+### 通过 device_type 属性查找指定的节点
+``` c
+struct device_node *of_find_node_by_type(struct device_node *from, 
+			const char *type)
+```
+- type：要查找的节点对应的 type 字符串，也就是 device_type 属性值
+### 根据 device_type 和 compatible 这两个属性查找指定的节点
+``` c
+struct device_node *of_find_compatible_node(struct device_node *from, 
+			const char *type, const char *compat)
+```
+- type：要查找的节点对应的 type 字符串，也就是 device_type 属性值，可以为 NULL，表示 忽略掉 device_type 属性
+- compat：要查找的节点所对应的 compatible 属性列表。
+### 通过 of_device_id 匹配表来查找指定的节点
+``` c
+struct device_node *of_find_matching_node_and_match(
+		struct device_node *from, const struct of_device_id *matches, 
+		const struct of_device_id **match)
+```
+- matches：of_device_id 匹配表，也就是在此匹配表里面查找节点
+- match：找到的匹配的 of_device_id
+### 通过路径来查找指定的节点
+``` c
+inline struct device_node *of_find_node_by_path(const char *path)
+```
+- path：带有全路径的节点名，可以使用节点的别名，比如“/backlight”就是 backlight 这个 节点的全路径
+## 三、获取节点的属性
 1. **获取字符串属性**
 	``` C
-	int of_property_read_string(
-		struct device_node *np, 
-		const char *propname, 
-		const char **out_string
-	)
+	int of_property_read_string(struct device_node *np, 
+		const char *propname, const char **out_string)
 	```
 2. **获取整数属性**
 	``` C
-	int of_property_read_u32(
-		struct device_node *np, 
-		const char *propname, 
-		u32 *out_value
-	)
+	int of_property_read_u32(struct device_node *np, 
+		const char *propname, u32 *out_value)
 	```
 3. **获取布尔属性**
 	``` C
-	bool of_property_read_bool(
-		struct device_node *np, 
-		const char *propname
-	)
+	bool of_property_read_bool(struct device_node *np, 
+		const char *propname)
 	```
 4. **获取`reg`属性**
 	``` C
-	struct resource *platform_get_resource(
-		struct platform_device *dev,
-		unsigned int type, 
-		unsigned int num
-	)
+	struct resource *platform_get_resource(struct platform_device *dev,
+		unsigned int type, unsigned int num)
 	```
 	`unsigned int type`： 资源类型，写`IORESOURCE_MEM`
 	`num`: 资源索引（从0开始）
 5. **获取中断**
 6. **获取GPIO**
 - 例
-	``` dts
+	``` c
 	my_device {
 	    compatible = "vendor,my-device";
 	    device-name = "my_uart";
@@ -944,7 +1062,7 @@ void __iomem *devm_platform_ioremap_resource(struct platform_device *pdev,
 	    return 0;
 	}
 	```
-## 三、注册`platform`驱动
+## 四、注册`platform`驱动
 - **`struct platform_driver`**
 	![[platform_driver结构体.png]]
 	- `.driver`
